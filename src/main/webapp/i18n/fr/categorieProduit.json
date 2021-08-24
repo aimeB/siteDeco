@@ -1,0 +1,24 @@
+{
+  "decormoiApp": {
+    "categorieProduit": {
+      "home": {
+        "title": "CategorieProduits",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Categorie Produit",
+        "createOrEditLabel": "Créer ou éditer un Categorie Produit",
+        "notFound": "Aucun Categorie Produit trouvé"
+      },
+      "created": "Un nouveau Categorie Produit a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Categorie Produit avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Categorie Produit avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Categorie Produit {{ id }} ?"
+      },
+      "detail": {
+        "title": "Categorie Produit"
+      },
+      "id": "ID",
+      "nom": "Nom"
+    }
+  }
+}

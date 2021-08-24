@@ -1,0 +1,373 @@
+<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-dark">
+  <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
+    <span class="logo-img"></span>
+    <span jhiTranslate="global.title" class="navbar-title">Decormoi</span>
+    <span class="navbar-version">{{ version }}</span>
+  </a>
+  <a class="navbar-toggler d-lg-none" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive"
+    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+    <fa-icon icon="bars"></fa-icon>
+  </a>
+  <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed"
+    [ngSwitch]="account !== null">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+          <span>
+            <fa-icon icon="home"></fa-icon>
+            <span jhiTranslate="global.menu.home">Home</span>
+          </span>
+        </a>
+      </li>
+      <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+      <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu"
+          data-cy="entity">
+          <span>
+            <fa-icon icon="th-list"></fa-icon>
+            <span jhiTranslate="global.menu.entities.main">Entities</span>
+          </span>
+        </a>
+        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
+          <li>
+            <a class="dropdown-item" routerLink="event" routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.entities.event">Event</span>
+            </a>
+          </li>
+
+          <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+        </ul>
+      </li>
+      <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" display="dynamic"
+        routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu"
+          data-cy="adminMenu">
+          <span>
+            <fa-icon icon="users-cog"></fa-icon>
+            <span jhiTranslate="global.menu.admin.main">Administration</span>
+          </span>
+        </a>
+        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
+          <li>
+            <a class="dropdown-item" routerLink="admin/user-management" routerLinkActive="active"
+              (click)="collapseNavbar()">
+              <fa-icon icon="users" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.admin.userManagement">User management</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" routerLink="categorie-produit" routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.entities.categorieProduit">Categorie Produit</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" routerLink="produit" routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.entities.produit">Produit</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" routerLink="type-evenement" routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.entities.typeEvenement">Type Evenement</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" routerLink="salle" routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.entities.salle">Salle</span>
+            </a>
+          </li>
+
+        </ul>
+      </li>
+      <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" *ngIf="languages && languages.length > 1">
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown">
+          <span>
+            <fa-icon icon="flag"></fa-icon>
+            <span jhiTranslate="global.menu.language">Language</span>
+          </span>
+        </a>
+        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="languagesnavBarDropdown">
+          <li *ngFor="let language of languages">
+            <a class="dropdown-item" [jhiActiveMenu]="language" href="javascript:void(0);"
+              (click)="changeLanguage(language); collapseNavbar()">{{ language | findLanguageFromKey }}</a>
+          </li>
+        </ul>
+      </li>
+      <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu"
+          data-cy="accountMenu">
+          <span *ngIf="!account?.imageUrl">
+            <fa-icon icon="user"></fa-icon>
+            <span jhiTranslate="global.menu.account.main">Account</span>
+          </span>
+          <span *ngIf="account?.imageUrl">
+            <img [src]="account!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />
+          </span>
+        </a>
+        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="account-menu">
+          <li *ngSwitchCase="true">
+            <a class="dropdown-item" routerLink="account/settings" routerLinkActive="active" (click)="collapseNavbar()"
+              data-cy="settings">
+              <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.account.settings">Settings</span>
+            </a>
+          </li>
+          <li *ngSwitchCase="true">
+            <a class="dropdown-item" routerLink="account/password" routerLinkActive="active" (click)="collapseNavbar()"
+              data-cy="passwordItem">
+              <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.account.password">Password</span>
+            </a>
+          </li>
+          <li *ngSwitchCase="true">
+            <a class="dropdown-item" routerLink="account/sessions" routerLinkActive="active" (click)="collapseNavbar()">
+              <fa-icon icon="cloud" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.account.sessions">Sessions</span>
+            </a>
+          </li>
+          <li *ngSwitchCase="true">
+            <a class="dropdown-item" (click)="logout()" id="logout" data-cy="logout">
+              <fa-icon icon="sign-out-alt" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.account.logout">Sign out</span>
+            </a>
+          </li>
+          <li *ngSwitchCase="false">
+            <a class="dropdown-item" (click)="login()" id="login" data-cy="login">
+              <fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.account.login">Sign in</span>
+            </a>
+          </li>
+          <li *ngSwitchCase="false">
+            <a class="dropdown-item" routerLink="account/register" routerLinkActive="active" (click)="collapseNavbar()"
+              data-cy="register">
+              <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.account.register">Register</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script>
+  // Prevent dropdown menu from closing when click inside the form
+  $(document).on("click", ".navbar-right .dropdown-menu", function (e) {
+    e.stopPropagation();
+  });
+</script>
+<!-------------------------------- version invité --------------------------------------------------------------->
+<header class="invit">
+  <nav class="navbar navbar-inverse  navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header col-md-1">
+        <a class="navbar-brand" href="#">Decor'<span>MOI</span></a>
+      </div>
+
+      <div>
+        <ul class="nav navbar-nav col-md-6">
+          <li routerLinkActive="active"><a routerLink="acceuil">Home</a></li>
+          <li routerLinkActive="active"><a routerLink="galerie">Galerie</a></li>
+          <li routerLinkActive="active"><a routerLink="univers">Univers</a></li>
+          <li routerLinkActive="active"><a routerLink="blog-list">Blog</a></li>
+          <li routerLinkActive="active"><a routerLink="devis-form">Devis</a></li>
+          <li routerLinkActive="active"><a routerLink="contact">Contact</a></li>
+          <li routerLinkActive="active"><a routerLink="apropos">À propos</a></li>
+
+
+
+
+        </ul>
+        <!---------------- outils de recherche ---------------------->
+
+        <form class="navbar-form form-inline col-md-2">
+          <div class="input-group search-box">
+            <input type="text" id="search" class="form-control" placeholder="rechercher ici...">
+            <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
+          </div>
+        </form>
+
+        <form class="navbar-form form-inline col-md-2">
+          <div class="text-info">
+            <a routerLink="signup">Créer un compte</a>
+
+          </div>
+        </form>
+
+        <form class="navbar-form form-inline col-md-2">
+          <div class="input-group search-box">
+            <a routerLink="signin"><button type="button" class="btn btn-primary">Se connecter</button></a>
+          </div>
+        </form>
+
+
+
+
+
+
+      </div>
+    </div>
+
+  </nav>
+</header>
+
+<!-------------------------------- version client --------------------------------------------------------------->
+<header class="client">
+  <nav class="navbar navbar-inverse  navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header col-md-1">
+        <a class="navbar-brand" href="#">Decor'<span>MOI</span></a>
+      </div>
+
+      <div>
+        <ul class="nav navbar-nav col-md-7">
+          <li routerLinkActive="active"><a routerLink="acceuil">Home</a></li>
+          <li routerLinkActive="active"><a routerLink="galerie">Galerie</a></li>
+          <li routerLinkActive="active"><a routerLink="univers">Univers</a></li>
+          <li routerLinkActive="active"><a routerLink="blog-list">Blog</a></li>
+          <li routerLinkActive="active"><a routerLink="devis-form">Devis</a></li>
+          <li routerLinkActive="active"><a routerLink="contact">Contact</a></li>
+          <li routerLinkActive="active"><a routerLink="apropos">À propos</a></li>
+          <li routerLinkActive="active"><a routerLink="single-event">Mes évenements</a></li>
+          <li routerLinkActive="active"><a routerLink="devis-list">Mes devis</a></li>
+          <li routerLinkActive="active"><a routerLink="#">Mon profil</a></li>
+        </ul>
+        <!---------------- outils de recherche ---------------------->
+
+        <form class="navbar-form form-inline col-md-1">
+          <div class="input-group search-box">
+            <input type="text" id="search" class="form-control" placeholder="rechercher ici...">
+            <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
+          </div>
+        </form>
+
+
+        <!---------------- outils d'authentification ---------------------->
+
+        <form class="navbar-form form-inline navbar-right">
+          <div>
+            <button type="button" class="btn btn-danger">Se déconnecter</button>
+          </div>
+
+        </form>
+
+
+
+      </div>
+    </div>
+
+  </nav>
+</header>
+<!-------------------------------- version agent --------------------------------------------------------------->
+<header class="agent">
+  <nav class="navbar navbar-inverse  navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header col-md-1">
+        <a class="navbar-brand" href="#">Decor'<span>MOI</span></a>
+      </div>
+
+      <div>
+        <ul class="nav navbar-nav col-md-7">
+          <li routerLinkActive="active"><a routerLink="acceuil">Home</a></li>
+          <li routerLinkActive="active"><a routerLink="galerie">Galerie</a></li>
+          <li routerLinkActive="active"><a routerLink="univers">Univers</a></li>
+          <li routerLinkActive="active"><a routerLink="blog-list">Blog</a></li>
+          <li routerLinkActive="active"><a routerLink="devis-form">Devis</a></li>
+          <li routerLinkActive="active"><a routerLink="contact">Contact</a></li>
+          <li routerLinkActive="active"><a routerLink="apropos">À propos</a></li>
+          <li routerLinkActive="active"><a routerLink="blog-list">Mes évenements</a></li>
+          <li routerLinkActive="active"><a routerLink="contact">Mes disponibilités</a></li>
+        </ul>
+        <!---------------- outils de recherche ---------------------->
+
+        <form class="navbar-form form-inline col-md-2">
+          <div class="input-group search-box">
+            <input type="text" id="search" class="form-control" placeholder="rechercher ici...">
+            <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
+          </div>
+        </form>
+
+
+        <!---------------- outils d'authentification ---------------------->
+
+        <form class="navbar-form form-inline navbar-right">
+          <div>
+            <button type="button" class="btn btn-danger">Se déconnecter</button>
+          </div>
+
+        </form>
+
+
+
+      </div>
+    </div>
+
+  </nav>
+</header>
+
+<!-------------------------------- version administrateur --------------------------------------------------------------->
+<header class="admin">
+  <nav class="navbar navbar-inverse  navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header col-md-1">
+        <a class="navbar-brand" href="#">Decor'<span>MOI</span></a>
+      </div>
+
+      <div>
+        <ul class="nav navbar-nav col-md-8">
+          <li routerLinkActive="active"><a routerLink="acceuil">Home</a></li>
+          <li routerLinkActive="active"><a routerLink="galerie">Galerie</a></li>
+          <li routerLinkActive="active"><a routerLink="univers">Univers</a></li>
+          <li routerLinkActive="active"><a routerLink="blog-list">Blog</a></li>
+          <li routerLinkActive="active"><a routerLink="devis-form">Devis</a></li>
+          <li routerLinkActive="active"><a routerLink="contact">Contact</a></li>
+          <li routerLinkActive="active"><a routerLink="apropos">À propos</a></li>
+          <li routerLinkActive="active"><a routerLink="event" routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }" jhiTranslate="global.menu.entities.event">Evenements</a></li>
+          <li routerLinkActive="active"><a routerLink="devis-list">Devis en cours</a></li>
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLink="produit" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"><a >Articles</a></li>
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active"><a routerLink="disponibilite">Gestion utilisateur</a></li>
+        </ul>
+        <!---------------- outils de recherche ---------------------->
+
+        <form class="navbar-form form-inline col-md-1">
+          <div class="input-group search-box">
+            <input type="text" id="search" class="form-control" placeholder="rechercher ici...">
+            <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
+          </div>
+        </form>
+
+
+        <!---------------- outils d'authentification ---------------------->
+
+        <form class="navbar-form form-inline navbar-right">
+          <div>
+
+            <button type="button" class="btn btn-danger">Se déconnecter</button>
+          </div>
+
+        </form>
+
+
+
+      </div>
+    </div>
+
+  </nav>
+</header>
+
+<!--------------------------------------------------------------------------------------------------------------->

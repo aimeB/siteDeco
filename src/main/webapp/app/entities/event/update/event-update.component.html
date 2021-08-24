@@ -1,0 +1,150 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-event-heading" data-cy="EventCreateUpdateHeading" jhiTranslate="decormoiApp.event.home.createOrEditLabel">
+        Create or edit a Event
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="decormoiApp.event.nom" for="field_nom">Nom</label>
+          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+          <div *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('nom')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="decormoiApp.event.dateEvenement" for="field_dateEvenement">Date Evenement</label>
+          <div class="d-flex">
+            <input
+              id="field_dateEvenement"
+              data-cy="dateEvenement"
+              type="datetime-local"
+              class="form-control"
+              name="dateEvenement"
+              formControlName="dateEvenement"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div
+            *ngIf="
+              editForm.get('dateEvenement')!.invalid && (editForm.get('dateEvenement')!.dirty || editForm.get('dateEvenement')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('dateEvenement')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('dateEvenement')?.errors?.ZonedDateTimelocal"
+              jhiTranslate="entity.validation.ZonedDateTimelocal"
+            >
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+
+
+
+
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="decormoiApp.event.typeEvenement" for="field_typeEvenement">Type Evenement</label>
+          <select
+            class="form-control"
+            id="field_typeEvenement"
+            data-cy="typeEvenement"
+            name="typeEvenement"
+            formControlName="typeEvenement"
+          >
+            <option *ngIf="!editForm.get('typeEvenement')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                typeEvenementOption.id === editForm.get('typeEvenement')!.value?.id
+                  ? editForm.get('typeEvenement')!.value
+                  : typeEvenementOption
+              "
+              *ngFor="let typeEvenementOption of typeEvenementsSharedCollection; trackBy: trackTypeEvenementById"
+            >
+              {{ typeEvenementOption.nom }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['typeEvenement'])!.invalid && (editForm.get(['typeEvenement'])!.dirty || editForm.get(['typeEvenement'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['typeEvenement'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label jhiTranslate="decormoiApp.event.produit" for="field_produits">Produit</label>
+          <select class="form-control" id="field_produits" data-cy="produit" multiple name="produits" formControlName="produits">
+            <option
+              [ngValue]="getSelectedProduit(produitOption, editForm.get('produits')!.value)"
+              *ngFor="let produitOption of produitsSharedCollection; trackBy: trackProduitById"
+            >
+              {{ produitOption.nom }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="decormoiApp.event.salle" for="field_salle">Salle</label>
+          <select class="form-control" id="field_salle" data-cy="salle" name="salle" formControlName="salle">
+            <option *ngIf="!editForm.get('salle')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="salleOption.id === editForm.get('salle')!.value?.id ? editForm.get('salle')!.value : salleOption"
+              *ngFor="let salleOption of sallesSharedCollection; trackBy: trackSalleById"
+            >
+              {{ salleOption.nom }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['salle'])!.invalid && (editForm.get(['salle'])!.dirty || editForm.get(['salle'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['salle'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

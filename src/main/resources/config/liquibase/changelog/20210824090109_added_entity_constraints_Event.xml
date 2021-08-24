@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Event.
+    -->
+    <changeSet id="20210824090109-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="appartenanta_id"
+                                 baseTableName="event"
+                                 constraintName="fk_event__appartenanta_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="event_id"
+                                 baseTableName="rel_event__agent_evenement"
+                                 constraintName="fk_rel_event__agent_evenement__event_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="event"/>
+
+        <addForeignKeyConstraint baseColumnNames="agent_evenement_id"
+                                 baseTableName="rel_event__agent_evenement"
+                                 constraintName="fk_rel_event__agent_evenement__agent_evenement_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="type_evenement_id"
+                                 baseTableName="event"
+                                 constraintName="fk_event__type_evenement_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="type_evenement"/>
+
+        <addForeignKeyConstraint baseColumnNames="event_id"
+                                 baseTableName="rel_event__produit"
+                                 constraintName="fk_rel_event__produit__event_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="event"/>
+
+        <addForeignKeyConstraint baseColumnNames="produit_id"
+                                 baseTableName="rel_event__produit"
+                                 constraintName="fk_rel_event__produit__produit_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="produit"/>
+
+        <addForeignKeyConstraint baseColumnNames="salle_id"
+                                 baseTableName="event"
+                                 constraintName="fk_event__salle_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="salle"/>
+    </changeSet>
+</databaseChangeLog>

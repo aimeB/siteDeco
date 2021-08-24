@@ -1,0 +1,65 @@
+{
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateEvenement",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "prix",
+      "fieldType": "Double"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipName": "appartenantA",
+      "otherEntityName": "user",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "login",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "event"
+    },
+    {
+      "relationshipName": "agentEvenement",
+      "otherEntityName": "user",
+      "relationshipType": "many-to-many",
+      "otherEntityField": "login",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "event"
+    },
+    {
+      "relationshipName": "typeEvenement",
+      "otherEntityName": "typeEvenement",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"],
+      "otherEntityField": "nom"
+    },
+    {
+      "relationshipName": "produit",
+      "otherEntityName": "produit",
+      "relationshipType": "many-to-many",
+      "otherEntityField": "nom",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "event"
+    },
+    {
+      "relationshipName": "salle",
+      "otherEntityName": "salle",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"],
+      "otherEntityField": "nom"
+    }
+  ],
+  "service": "serviceClass",
+  "dto": "no",
+  "jpaMetamodelFiltering": true,
+  "readOnly": false,
+  "pagination": "pagination",
+  "name": "Event",
+  "changelogDate": "20210824090109"
+}
