@@ -1,57 +1,35 @@
-*{  
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;            
-        }
-        body{
-            background-image: url(https://i.postimg.cc/VknWnhst/1.jpg);
-            -webkit-background-size: cover;
-            background-size: cover;
-            background-position: center center;
-            height: 100vh;
-            font-family: black;
-            font-weight: 600;
-            font-size: 16px;          
-        }
+body{  margin: 0;
+        padding: 0;
+    }
+
+       
         
-        a{
-            text-decoration: none;
+ header{
+           margin-bottom: 10%;
+            
         }
-        header{
-            display: -webkit-flex;
-            display: -moz-flex;
-            display: -ms-flex;
-            display: -o-flex;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 70px;
-        }
-        .logo{
-            cursor: pointer;
-        }
-        .nav-area{
-            list-style: none;
-        }
-        .nav-area li{
-            display: inline-block;
-            padding: 0 15px;
-            text-transform: uppercase;
-        }
-        .nav-area li a{
-            transition: all .3s ease 0s;
-            color: #fff;
-        }
-        .nav-area li a:hover{
-            color: #006C87;
-        }
-        .btn-area {
-            cursor: pointer;
-            color: #fff;
-            font-size: 16px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 10px 30px;
-            border-radius: 5px;
-            background: #006C87;            
-        }
+.auth{
+	padding-right: px;
+}
+
+
+/*--------------visibilité navbar--------------------*/
+
+.adminx{display: none;
+
+}
+
+.user{display: none;
+
+}
+.agent{display: none;
+
+}
+
+.client{display: none;
+
+}
+
+.invit{display: none;
+
+}

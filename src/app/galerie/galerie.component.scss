@@ -1,23 +1,17 @@
-ul#nav {
-  display:inline;
-  float:left;
+.section-title {
+text-align:center;
+margin-top: 1em;
+background-color: #ecf0f1;
+padding: .5em 0;
+border-radius: .3em;
 }
-ul#nav li {
-  float:left;
-  list-style-type:none;
-  margin:0 10px;
-  position:relative;
+.service {
+border-radius: .3em;
+background-color: #34495e;
+text-align: center;
+padding: 3em 2em 1em 2em;
+color: white;
 }
-ul#nav div {
-  display:none;
-  float:left;
-  position:absolute;
-}
-ul#nav li ul {
-  margin:0;
-  padding:0;
-}
-ul#nav li ul li {
-  margin:0px;
-  width:150px;
+.service .glyphicon {
+font-size: 5em;
 }

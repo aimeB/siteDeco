@@ -11,6 +11,7 @@ const URL = "https://player.vimeo.com/video/416594060?loop=1&amp;autoplay=1&amp;
 export class AcceuilComponent implements OnInit {
 	
   
+  
   constructor( public sanitizer: DomSanitizer) { }
 
   getSafeUrl(){
