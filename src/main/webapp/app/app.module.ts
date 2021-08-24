@@ -29,6 +29,33 @@ import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 
+import { SignupComponent } from './new-comp/auth/signup/signup.component';
+import { AcceuilComponent } from './new-comp/acceuil/acceuil.component';
+import { FaqComponent } from './new-comp/faq/faq.component';
+import { SingleEventComponent } from './new-comp/event-list/single-event/single-event.component';
+import { ArticleListComponent } from './new-comp/article-list/article-list.component';
+import { ArticleFormComponent } from './new-comp/article-list/article-form/article-form.component';
+import { HeaderComponent } from './new-comp/header/header.component';
+import { BlogListComponent } from './new-comp/blog-list/blog-list.component';
+import { BlogFormComponent } from './new-comp/blog-list/blog-form/blog-form.component';
+import { SingleDevisComponent } from './new-comp/devis-list/single-devis/single-devis.component';
+import { ContactComponent } from './new-comp/contact/contact.component';
+import { ListComponent } from './new-comp/user/list/list.component';
+import { SigninComponent } from './new-comp/auth/signin/signin.component';
+import { MentionLegaleComponent } from './new-comp/mention-legale/mention-legale.component';
+import { ConditionsGeneraleComponent } from './new-comp/conditions-generale/conditions-generale.component';
+import { EventListComponent } from './new-comp/event-list/event-list.component';
+import { EventFormComponent } from './new-comp/event-list/event-form/event-form.component';
+import { SingleArticleComponent } from './new-comp/article-list/single-article/single-article.component';
+import { StockComponent } from './new-comp/stock/stock.component';
+import { GalerieComponent } from './new-comp/galerie/galerie.component';
+import { AproposComponent } from './new-comp/apropos/apropos.component';
+import { SingleBlogComponent } from './new-comp/blog-list/single-blog/single-blog.component';
+import { DevisListComponent } from './new-comp/devis-list/devis-list.component';
+import { DevisFormComponent } from './new-comp/devis-list/devis-form/devis-form.component';
+import { DisponibiliteComponent } from './new-comp/disponibilite/disponibilite.component';
+import { AccueilService } from './new-comp/services/accueil.service';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -58,8 +85,35 @@ import { ErrorComponent } from './layouts/error/error.component';
     { provide: LOCALE_ID, useValue: 'fr' },
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
+    AccueilService
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent,
+    SignupComponent,
+    AcceuilComponent,
+    FaqComponent,
+    SingleEventComponent,
+    ArticleListComponent,
+    ArticleFormComponent,
+    HeaderComponent,
+    FooterComponent,
+    BlogListComponent,
+    BlogFormComponent,
+    SingleDevisComponent,
+    ContactComponent,
+    ListComponent,
+    SigninComponent,
+    MentionLegaleComponent,
+    ConditionsGeneraleComponent,
+    EventListComponent,
+    EventFormComponent,
+    SingleArticleComponent,
+    StockComponent,
+    GalerieComponent,
+    AproposComponent,
+    SingleBlogComponent,
+    DevisListComponent,
+    DevisFormComponent,
+    DisponibiliteComponent],
   bootstrap: [MainComponent],
 })
 export class AppModule {
