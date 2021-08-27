@@ -8,7 +8,6 @@ import { ISalle } from '../salle.model';
 
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { SalleService } from '../service/salle.service';
-import { SalleDeleteDialogComponent } from '../delete/salle-delete-dialog.component';
 
 @Component({
   selector: 'jhi-salle',
@@ -62,13 +61,8 @@ export class SalleComponent implements OnInit {
   }
 
   delete(salle: ISalle): void {
-    const modalRef = this.modalService.open(SalleDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.salle = salle;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.loadPage();
-      }
+    this.salleService.delete(salle.id!).subscribe(() => {
+      this.loadPage();
     });
   }
 

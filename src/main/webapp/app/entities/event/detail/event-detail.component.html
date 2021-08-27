@@ -10,10 +10,6 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="global.field.id">ID</span></dt>
-        <dd>
-          <span>{{ event.id }}</span>
-        </dd>
         <dt><span jhiTranslate="decormoiApp.event.nom">Nom</span></dt>
         <dd>
           <span>{{ event.nom }}</span>
@@ -26,8 +22,8 @@
         <dd>
           <span>{{ event.prix }}</span>
         </dd>
-        <dt><span jhiTranslate="decormoiApp.event.appartenantA">Appartenant A</span></dt>
-        <dd>
+        <dt *jhiHasAnyAuthority="'ROLE_ADMIN'"><span jhiTranslate="decormoiApp.event.appartenantA">Appartenant A</span></dt>
+        <dd *jhiHasAnyAuthority="'ROLE_ADMIN'">
           <span>{{ event.appartenantA?.login }}</span>
         </dd>
         <dt><span jhiTranslate="decormoiApp.event.agentEvenement">Agent Evenement</span></dt>
@@ -38,21 +34,19 @@
         </dd>
         <dt><span jhiTranslate="decormoiApp.event.typeEvenement">Type Evenement</span></dt>
         <dd>
-          <div *ngIf="event.typeEvenement">
-            <a [routerLink]="['/type-evenement', event.typeEvenement?.id, 'view']">{{ event.typeEvenement?.nom }}</a>
-          </div>
+          <div *ngIf="event.typeEvenement">{{ event.typeEvenement?.nom }}</div>
         </dd>
         <dt><span jhiTranslate="decormoiApp.event.produit">Produit</span></dt>
         <dd>
-          <span *ngFor="let produit of event.produits; let last = last">
-            <a [routerLink]="['/produit', produit?.id, 'view']">{{ produit.nom }}</a
-            >{{ last ? '' : ', ' }}
+          <span *ngFor="let produit of event.produits; let last = last"
+            >{{ produit.nom }}
+            {{ last ? '' : ', ' }}
           </span>
         </dd>
         <dt><span jhiTranslate="decormoiApp.event.salle">Salle</span></dt>
         <dd>
           <div *ngIf="event.salle">
-            <a [routerLink]="['/salle', event.salle?.id, 'view']">{{ event.salle?.nom }}</a>
+            {{ event.salle?.nom }}
           </div>
         </dd>
       </dl>

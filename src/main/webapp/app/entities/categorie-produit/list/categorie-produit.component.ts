@@ -8,7 +8,6 @@ import { ICategorieProduit } from '../categorie-produit.model';
 
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { CategorieProduitService } from '../service/categorie-produit.service';
-import { CategorieProduitDeleteDialogComponent } from '../delete/categorie-produit-delete-dialog.component';
 
 @Component({
   selector: 'jhi-categorie-produit',
@@ -62,13 +61,8 @@ export class CategorieProduitComponent implements OnInit {
   }
 
   delete(categorieProduit: ICategorieProduit): void {
-    const modalRef = this.modalService.open(CategorieProduitDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.categorieProduit = categorieProduit;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.loadPage();
-      }
+    this.categorieProduitService.delete(categorieProduit.id!).subscribe(() => {
+      this.loadPage();
     });
   }
 

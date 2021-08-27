@@ -20,22 +20,6 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "@angular-eslint/component-selector": [
-      "error",
-      {
-        "type": "element",
-        "prefix": "jhi",
-        "style": "kebab-case"
-      }
-    ],
-    "@angular-eslint/directive-selector": [
-      "error",
-      {
-        "type": "attribute",
-        "prefix": "jhi",
-        "style": "camelCase"
-      }
-    ],
     "@angular-eslint/relative-url-prefix": "error",
     "@typescript-eslint/ban-types": [
       "error",
@@ -46,7 +30,6 @@
         }
       }
     ],
-    "@typescript-eslint/explicit-function-return-type": ["error", { "allowExpressions": true }],
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/member-ordering": [
       "error",
@@ -68,6 +51,8 @@
         ]
       }
     ],
+    "@typescript-eslint/no-empty-function": "off",
+    "@angular-eslint/no-empty-lifecycle-method": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
@@ -86,7 +71,6 @@
     "guard-for-in": "error",
     "no-bitwise": "error",
     "no-caller": "error",
-    "no-console": ["error", { "allow": ["warn", "error"] }],
     "no-eval": "error",
     "no-labels": "error",
     "no-new": "error",

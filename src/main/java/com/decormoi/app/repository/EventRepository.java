@@ -17,6 +17,8 @@ public interface EventRepository extends JpaRepository<Event, Long>, JpaSpecific
     @Query("select event from Event event where event.appartenantA.login = ?#{principal.username}")
     List<Event> findByAppartenantAIsCurrentUser();
 
+    Optional<Event> findByIdAndAppartenantAId(long eventId, long userId);
+
     @Query(
         value = "select distinct event from Event event left join fetch event.agentEvenements left join fetch event.produits",
         countQuery = "select count(distinct event) from Event event"

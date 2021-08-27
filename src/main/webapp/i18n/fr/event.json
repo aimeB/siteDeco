@@ -2,28 +2,28 @@
   "decormoiApp": {
     "event": {
       "home": {
-        "title": "Events",
+        "title": "Liste d'évenements",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Event",
-        "createOrEditLabel": "Créer ou éditer un Event",
-        "notFound": "Aucun Event trouvé"
+        "createLabel": "Créer un nouvel évenement",
+        "createOrEditLabel": "Détails de l'évenement",
+        "notFound": "Aucun Evenement trouvé"
       },
-      "created": "Un nouveau Event a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Event avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Event avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouvel évenement a été créé",
+      "updated": "L'évenement a été mis à jour",
+      "deleted": "L'évenement a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Event {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer l'évenement ?"
       },
       "detail": {
-        "title": "Event"
+        "title": "Détails de l'évenement"
       },
       "id": "ID",
       "nom": "Nom",
-      "dateEvenement": "Date Evenement",
-      "prix": "Prix",
+      "dateEvenement": "Date de l'évenement",
+      "prix": "Coût du devis",
       "appartenantA": "Appartenant A",
-      "agentEvenement": "Agent Evenement",
-      "typeEvenement": "Type Evenement",
+      "agentEvenement": "Agents Affectés",
+      "typeEvenement": "Type",
       "produit": "Produit",
       "salle": "Salle"
     }

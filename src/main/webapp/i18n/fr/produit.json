@@ -5,12 +5,12 @@
         "title": "Produits",
         "refreshListLabel": "Actualiser la liste",
         "createLabel": "Créer un nouveau Produit",
-        "createOrEditLabel": "Créer ou éditer un Produit",
+        "createOrEditLabel": "Détail du Produit",
         "notFound": "Aucun Produit trouvé"
       },
-      "created": "Un nouveau Produit a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Produit avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Produit avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Produit a été créé ",
+      "updated": "Le Produit a été mis à jour",
+      "deleted": "Le Produit a été supprimé",
       "delete": {
         "question": "Etes-vous certain de vouloir supprimer le Produit {{ id }} ?"
       },

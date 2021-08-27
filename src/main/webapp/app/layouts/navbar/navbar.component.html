@@ -1,7 +1,5 @@
 <nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-dark">
-  <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
-    Decor'<span>MOI</span>
-  </a>
+  <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()"> Decor'<span>MOI</span> </a>
   <a
     class="navbar-toggler d-lg-none"
     href="javascript:void(0);"
@@ -16,105 +14,66 @@
   </a>
   <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
     <ul class="navbar-nav ml-auto">
-
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/galerie" (click)="collapseNavbar()">
-          <span>
-            <span >Galerie</span>
-          </span>
-        </a>
-      </li>
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="/univers" (click)="collapseNavbar()">
-          <span>
-            <span >Univers</span>
-          </span>
-        </a>
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="blog-list" (click)="collapseNavbar()">
-          <span>
-            <span >Blog</span>
-          </span>
-        </a>
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
-          <span>
-            <span >Devis</span>
-          </span>
-        </a>
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
-          <span>
-            <span >Contact</span>
-          </span>
-        </a>
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
-          <span>
-            <span >A propos</span>
-          </span>
-        </a>
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
-          <span>
-            <span >Mes évenements</span>
-          </span>
-        </a>
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
-          <span>
-            <span >Mes devis</span>
-          </span>
-        </a>
-      </li>
-
-
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+        <a class="nav-link" routerLink="/acceuil" (click)="collapseNavbar()">
           <span>
             <fa-icon icon="home"></fa-icon>
             <span jhiTranslate="global.menu.home">Home</span>
           </span>
         </a>
       </li>
-      <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-      <li
-        *ngSwitchCase="true"
-        ngbDropdown
-        class="nav-item dropdown pointer"
-        display="dynamic"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/galerie" (click)="collapseNavbar()">
           <span>
-            <fa-icon icon="th-list"></fa-icon>
-            <span jhiTranslate="global.menu.entities.main">Entities</span>
+            <span>Galerie</span>
           </span>
         </a>
-        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="event"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.event">Event</span>
-            </a>
-          </li>
-
-          <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-        </ul>
       </li>
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/univers" (click)="collapseNavbar()">
+          <span>
+            <span>Univers</span>
+          </span>
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="blog-list" (click)="collapseNavbar()">
+          <span>
+            <span>Blog</span>
+          </span>
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/devis-list" (click)="collapseNavbar()">
+          <span>
+            <span>Devis</span>
+          </span>
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/contact" (click)="collapseNavbar()">
+          <span>
+            <span>Contact</span>
+          </span>
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/apropos" (click)="collapseNavbar()">
+          <span>
+            <span>A propos</span>
+          </span>
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="event" (click)="collapseNavbar()">
+          <span>
+            <span>Mes évenements</span>
+          </span>
+        </a>
+      </li>
+
+      <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+
       <li
         *jhiHasAnyAuthority="'ROLE_ADMIN'"
         ngbDropdown
@@ -184,7 +143,6 @@
               <span jhiTranslate="global.menu.entities.salle">Salle</span>
             </a>
           </li>
-
         </ul>
       </li>
       <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" *ngIf="languages && languages.length > 1">

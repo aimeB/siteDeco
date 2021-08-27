@@ -32,43 +32,47 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="nom"><span jhiTranslate="decormoiApp.event.nom">Nom</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="dateEvenement">
-            <span jhiTranslate="decormoiApp.event.dateEvenement">Date Evenement</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="nom">
+            <span jhiTranslate="decormoiApp.event.nom">Nom</span>
+            <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="prix"><span jhiTranslate="decormoiApp.event.prix">Prix</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="appartenantA.login">
-            <span jhiTranslate="decormoiApp.event.appartenantA">Appartenant A</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="dateEvenement">
+            <span jhiTranslate="decormoiApp.event.dateEvenement">Date Evenement</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="prix">
+            <span jhiTranslate="decormoiApp.event.prix">Prix</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th *jhiHasAnyAuthority="'ROLE_ADMIN'" scope="col" jhiSortBy="appartenantA.login">
+            <span jhiTranslate="decormoiApp.event.appartenantA">Appartenant A</span>
+            <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="typeEvenement.nom">
-            <span jhiTranslate="decormoiApp.event.typeEvenement">Type Evenement</span> <fa-icon icon="sort"></fa-icon>
+            <span jhiTranslate="decormoiApp.event.typeEvenement">Type Evenement</span>
+            <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="salle.nom">
-            <span jhiTranslate="decormoiApp.event.salle">Salle</span> <fa-icon icon="sort"></fa-icon>
+            <span jhiTranslate="decormoiApp.event.salle">Salle</span>
+            <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let event of events; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/event', event.id, 'view']">{{ event.id }}</a>
-          </td>
           <td>{{ event.nom }}</td>
           <td>{{ event.dateEvenement | formatMediumDatetime }}</td>
           <td>{{ event.prix }}</td>
-          <td>
+          <td *jhiHasAnyAuthority="'ROLE_ADMIN'">
             {{ event.appartenantA?.login }}
           </td>
           <td>
-            <div *ngIf="event.typeEvenement">
-              <a [routerLink]="['/type-evenement', event.typeEvenement?.id, 'view']">{{ event.typeEvenement?.nom }}</a>
-            </div>
+            <div *ngIf="event.typeEvenement">{{ event.typeEvenement?.nom }}</div>
           </td>
           <td>
             <div *ngIf="event.salle">
-              <a [routerLink]="['/salle', event.salle?.id, 'view']">{{ event.salle?.nom }}</a>
+              {{ event.salle?.nom }}
             </div>
           </td>
           <td class="text-right">
@@ -83,10 +87,28 @@
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
-              <button type="submit" (click)="delete(event)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
+              <!-- Modal -->
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <h4 class="modal-title" id="myModalLabel">Confirmer suppression</h4>
+                    </div>
+                    <div class="modal-body">Voulez vous vraiment supprimer ?</div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                      <button type="button" data-dismiss="modal" (click)="delete(event.id!)" class="btn btn-primary">Confirmer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </td>
         </tr>

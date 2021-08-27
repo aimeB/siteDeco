@@ -4,13 +4,13 @@
       "home": {
         "title": "CategorieProduits",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Categorie Produit",
-        "createOrEditLabel": "Créer ou éditer un Categorie Produit",
-        "notFound": "Aucun Categorie Produit trouvé"
+        "createLabel": "Créer une nouvelle Categorie",
+        "createOrEditLabel": "Détails de la Categorie",
+        "notFound": "Aucune Categorie trouvée"
       },
-      "created": "Un nouveau Categorie Produit a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Categorie Produit avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Categorie Produit avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Categorie a été créée",
+      "updated": "La Categorie a été mise à jour",
+      "deleted": "La Categorie a été supprimée",
       "delete": {
         "question": "Etes-vous certain de vouloir supprimer le Categorie Produit {{ id }} ?"
       },

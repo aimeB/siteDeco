@@ -8,7 +8,6 @@ import { ITypeEvenement } from '../type-evenement.model';
 
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { TypeEvenementService } from '../service/type-evenement.service';
-import { TypeEvenementDeleteDialogComponent } from '../delete/type-evenement-delete-dialog.component';
 
 @Component({
   selector: 'jhi-type-evenement',
@@ -62,13 +61,8 @@ export class TypeEvenementComponent implements OnInit {
   }
 
   delete(typeEvenement: ITypeEvenement): void {
-    const modalRef = this.modalService.open(TypeEvenementDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.typeEvenement = typeEvenement;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.loadPage();
-      }
+    this.typeEvenementService.delete(typeEvenement.id!).subscribe(() => {
+      this.loadPage();
     });
   }
 

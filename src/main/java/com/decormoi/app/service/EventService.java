@@ -77,6 +77,12 @@ public class EventService {
         return eventRepository.findAll(pageable);
     }
 
+    @Transactional(readOnly = true)
+    public Optional<Event> findOneByUserId(long userId, long eventId) {
+        log.debug("Request to get event id" + eventId);
+        return eventRepository.findByIdAndAppartenantAId(eventId, userId);
+    }
+
     /**
      * Get all the events with eager load of many-to-many relationships.
      *

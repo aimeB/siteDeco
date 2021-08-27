@@ -50,11 +50,16 @@ public class EventResource {
     private final EventQueryService eventQueryService;
     private final UserService userService;
 
-    public EventResource(UserService userService, EventService eventService, EventRepository eventRepository, EventQueryService eventQueryService) {
+    public EventResource(
+        UserService userService,
+        EventService eventService,
+        EventRepository eventRepository,
+        EventQueryService eventQueryService
+    ) {
         this.eventService = eventService;
         this.eventRepository = eventRepository;
         this.eventQueryService = eventQueryService;
-        this.userService =userService;
+        this.userService = userService;
     }
 
     /**
@@ -72,11 +77,15 @@ public class EventResource {
         if (event.getId() != null) {
             throw new BadRequestAlertException("A new event cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        event.setAppartenantA(userService.getUserWithAuthorities().get());
+        if (event.getProduits() != null) {
+            event.setPrix(event.getProduits().stream().map(p -> p.getPrix()).reduce(0.0, (a, b) -> a + b));
+        }
         Event result = eventService.save(event);
         return ResponseEntity
-                .created(new URI("/api/events/" + result.getId()))
-                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-                .body(result);
+            .created(new URI("/api/events/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 
     /**
@@ -92,7 +101,7 @@ public class EventResource {
      */
     @PutMapping("/events/{id}")
     public ResponseEntity<Event> updateEvent(@PathVariable(value = "id", required = false) final Long id, @Valid @RequestBody Event event)
-            throws URISyntaxException {
+        throws URISyntaxException {
         log.debug("REST request to update Event : {}, {}", id, event);
         if (event.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -104,12 +113,14 @@ public class EventResource {
         if (!eventRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
-
+        if (event.getProduits() != null) {
+            event.setPrix(event.getProduits().stream().map(p -> p.getPrix()).reduce(0.0, (a, b) -> a + b));
+        }
         Event result = eventService.save(event);
         return ResponseEntity
-                .ok()
-                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, event.getId().toString()))
-                .body(result);
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, event.getId().toString()))
+            .body(result);
     }
 
     /**
@@ -127,8 +138,8 @@ public class EventResource {
      */
     @PatchMapping(value = "/events/{id}", consumes = "application/merge-patch+json")
     public ResponseEntity<Event> partialUpdateEvent(
-            @PathVariable(value = "id", required = false) final Long id,
-            @NotNull @RequestBody Event event
+        @PathVariable(value = "id", required = false) final Long id,
+        @NotNull @RequestBody Event event
     ) throws URISyntaxException {
         log.debug("REST request to partial update Event partially : {}, {}", id, event);
         if (event.getId() == null) {
@@ -142,11 +153,14 @@ public class EventResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
+        if (event.getProduits() != null) {
+            event.setPrix(event.getProduits().stream().map(p -> p.getPrix()).reduce(0.0, (a, b) -> a + b));
+        }
         Optional<Event> result = eventService.partialUpdate(event);
 
         return ResponseUtil.wrapOrNotFound(
-                result,
-                HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, event.getId().toString())
+            result,
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, event.getId().toString())
         );
     }
 
@@ -160,10 +174,10 @@ public class EventResource {
      */
     @GetMapping("/events")
     public ResponseEntity<List<Event>> getAllEvents(EventCriteria criteria, Pageable pageable) {
-
         if (!userService.getUserWithAuthorities().get().getAuthorities().stream().anyMatch(a -> a.getName().equals("ROLE_ADMIN"))) {
             LongFilter longFilter = new LongFilter();
             longFilter.setEquals(userService.getUserWithAuthorities().get().getId());
+            criteria.setAppartenantAId(longFilter);
         }
         log.debug("REST request to get Events by criteria: {}", criteria);
         Page<Event> page = eventQueryService.findByCriteria(criteria, pageable);
@@ -194,7 +208,12 @@ public class EventResource {
     @GetMapping("/events/{id}")
     public ResponseEntity<Event> getEvent(@PathVariable Long id) {
         log.debug("REST request to get Event : {}", id);
-        Optional<Event> event = eventService.findOne(id);
+        Optional<Event> event;
+        if (userService.getUserWithAuthorities().get().getAuthorities().stream().anyMatch(a -> a.getName().equals("ROLE_ADMIN"))) {
+            event = eventService.findOne(id);
+        } else {
+            event = eventService.findOneByUserId(userService.getUserWithAuthorities().get().getId(), id);
+        }
         return ResponseUtil.wrapOrNotFound(event);
     }
 
@@ -209,8 +228,8 @@ public class EventResource {
         log.debug("REST request to delete Event : {}", id);
         eventService.delete(id);
         return ResponseEntity
-                .noContent()
-                .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-                .build();
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
     }
 }

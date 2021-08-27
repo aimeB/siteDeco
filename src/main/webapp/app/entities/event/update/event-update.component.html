@@ -7,12 +7,6 @@
 
       <div>
         <jhi-alert-error></jhi-alert-error>
-
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
-
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="decormoiApp.event.nom" for="field_nom">Nom</label>
           <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
@@ -57,11 +51,6 @@
             </small>
           </div>
         </div>
-
-
-
-
-
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="decormoiApp.event.typeEvenement" for="field_typeEvenement">Type Evenement</label>

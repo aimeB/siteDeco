@@ -8,7 +8,6 @@ import { IProduit } from '../produit.model';
 
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { ProduitService } from '../service/produit.service';
-import { ProduitDeleteDialogComponent } from '../delete/produit-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
 
 @Component({
@@ -72,13 +71,8 @@ export class ProduitComponent implements OnInit {
   }
 
   delete(produit: IProduit): void {
-    const modalRef = this.modalService.open(ProduitDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.produit = produit;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.loadPage();
-      }
+    this.produitService.delete(produit.id!).subscribe(() => {
+      this.loadPage();
     });
   }
 

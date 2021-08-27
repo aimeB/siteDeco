@@ -8,7 +8,6 @@ import { IEvent } from '../event.model';
 
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants';
 import { EventService } from '../service/event.service';
-import { EventDeleteDialogComponent } from '../delete/event-delete-dialog.component';
 
 @Component({
   selector: 'jhi-event',
@@ -61,14 +60,9 @@ export class EventComponent implements OnInit {
     return item.id!;
   }
 
-  delete(event: IEvent): void {
-    const modalRef = this.modalService.open(EventDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.event = event;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.loadPage();
-      }
+  delete(id: number): void {
+    this.eventService.delete(id).subscribe(() => {
+      this.loadPage();
     });
   }
 

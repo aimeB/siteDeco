@@ -24,7 +24,6 @@ import { httpInterceptorProviders } from 'app/core/interceptor/index';
 import { translatePartialLoader, missingTranslationHandler } from './config/translation.config';
 import { MainComponent } from './layouts/main/main.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
-import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
@@ -49,6 +48,7 @@ import { EventFormComponent } from './new-comp/event-list/event-form/event-form.
 import { SingleArticleComponent } from './new-comp/article-list/single-article/single-article.component';
 import { StockComponent } from './new-comp/stock/stock.component';
 import { GalerieComponent } from './new-comp/galerie/galerie.component';
+import { FooterComponent } from './new-comp/footer/footer.component';
 import { AproposComponent } from './new-comp/apropos/apropos.component';
 import { SingleBlogComponent } from './new-comp/blog-list/single-blog/single-blog.component';
 import { DevisListComponent } from './new-comp/devis-list/devis-list.component';
@@ -85,9 +85,14 @@ import { AccueilService } from './new-comp/services/accueil.service';
     { provide: LOCALE_ID, useValue: 'fr' },
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
-    AccueilService
+    AccueilService,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent,
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
     SignupComponent,
     AcceuilComponent,
     FaqComponent,
@@ -113,7 +118,8 @@ import { AccueilService } from './new-comp/services/accueil.service';
     SingleBlogComponent,
     DevisListComponent,
     DevisFormComponent,
-    DisponibiliteComponent],
+    DisponibiliteComponent,
+  ],
   bootstrap: [MainComponent],
 })
 export class AppModule {

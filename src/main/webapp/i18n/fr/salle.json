@@ -4,13 +4,13 @@
       "home": {
         "title": "Salles",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Salle",
-        "createOrEditLabel": "Créer ou éditer un Salle",
-        "notFound": "Aucun Salle trouvé"
+        "createLabel": "Créer une nouvelle Salle",
+        "createOrEditLabel": "Détails de la Salle",
+        "notFound": "Aucune Salle trouvée"
       },
-      "created": "Un nouveau Salle a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Salle avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Salle avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Salle a été créée",
+      "updated": "La Salle a été mise à jour",
+      "deleted": "La Salle a été supprimée",
       "delete": {
         "question": "Etes-vous certain de vouloir supprimer le Salle {{ id }} ?"
       },
